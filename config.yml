@@ -1,0 +1,9 @@
+:connection:
+  :adapter: sqlite3
+  :database: library.db
+
+:checkout_days: 7
+
+:secret: CHANGE ME
+
+:debug: true

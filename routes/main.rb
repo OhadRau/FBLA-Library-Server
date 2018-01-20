@@ -1,0 +1,2 @@
+class LibraryApi
+end
