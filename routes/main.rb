@@ -1,10 +1,10 @@
 class LibraryApi
   get '/books/inStock' do
-    Stock.where(status: "IN_STOCK").select(:title).distinct.to_json
+    Stock.where(status: "IN_STOCK").to_json
   end
 
   get '/books/byIsbn/:isbn' do
-    Stock.find_by(isbn: params[:isbn]).to_json
+    Book.find_by(isbn: params[:isbn]).to_json
   end
 
   get '/user/:user/books' do
