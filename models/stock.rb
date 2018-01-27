@@ -1,6 +1,6 @@
 class Stock < ActiveRecord::Base
   self.pluralize_table_names = false
-  belongs_to :book
+  belongs_to :book, foreign_key: 'isbn'
 
   def self.check_out(isbn, user)
     slot = Stock.find_by(isbn: isbn, status: "IN_STOCK")

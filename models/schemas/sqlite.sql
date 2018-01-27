@@ -5,7 +5,8 @@ CREATE TABLE books (
   author TEXT NOT NULL,
   publisher TEXT,
   edition INTEGER,
-  copyright CHAR(4)
+  copyright CHAR(4),
+  cover BLOB
 );
 
 CREATE TABLE status (

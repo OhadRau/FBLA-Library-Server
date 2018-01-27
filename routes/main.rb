@@ -1,6 +1,17 @@
 class LibraryApi
-  get '/books/inStock' do
+  get '/books' do
+    Book.all.to_json
+  end
+
+  get '/books/stock' do
     Stock.where(status: "IN_STOCK").to_json
+  end
+
+  get '/books/inStock' do
+    Stock.joins(:book)
+         .where(status: "IN_STOCK")
+         .select(:isbn, :dewey, :title, :author, :publisher, :edition, :copyright, :cover, 'COUNT(stock.isbn) AS left')
+         .to_json
   end
 
   get '/books/byIsbn/:isbn' do
