@@ -1,17 +1,17 @@
 class LibraryApi
   get '/books' do
-    Book.all.to_json
+    {books: Book.all}.to_json
   end
 
   get '/books/stock' do
-    Stock.where(status: "IN_STOCK").to_json
+    {stock: Stock.where(status: "IN_STOCK")}.to_json
   end
 
   get '/books/inStock' do
-    Stock.joins(:book)
-         .where(status: "IN_STOCK")
-         .select(:isbn, :dewey, :title, :author, :publisher, :edition, :copyright, :cover, 'COUNT(stock.isbn) AS left')
-         .to_json
+    {books: Stock.joins(:book)
+                 .where(status: "IN_STOCK")
+                 .select(:isbn, :dewey, :title, :author, :publisher, :edition, :copyright, :cover, 'COUNT(stock.isbn) AS left')
+    }.to_json
   end
 
   get '/books/byIsbn/:isbn' do
@@ -19,19 +19,19 @@ class LibraryApi
   end
 
   get '/user/:user/books' do
-    Stock.where(user: params[:user]).to_json
+    {stock: Stock.where(user: params[:user])}.to_json
   end
 
   get '/user/:user/reserved' do
-    Stock.where(user: params[:user], status: "RESERVED").to_json
+    {reserved: Stock.where(user: params[:user], status: "RESERVED")}.to_json
   end
 
   get '/user/:user/checked_out' do
-    Stock.where(user: params[:user], status: "CHECKED_OUT").to_json
+    {checked_out: Stock.where(user: params[:user], status: "CHECKED_OUT")}.to_json
   end
 
   get '/user/:user/overdue' do
-    Stock.where(user: params[:user], status: "CHECKED_OUT", due: [0, Date.today.to_s]).to_json
+    {overdue: Stock.where(user: params[:user], status: "CHECKED_OUT", due: [0, Date.today.to_s])}.to_json
   end
 
   post '/books/byIsbn/:isbn/checkOutFor/:user' do
