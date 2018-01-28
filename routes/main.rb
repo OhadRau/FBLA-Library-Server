@@ -10,7 +10,7 @@ class LibraryApi
   get '/books/inStock' do
     {books: Stock.joins(:book)
                  .where(status: "IN_STOCK")
-                 .select(:isbn, :dewey, :title, :author, :publisher, :edition, :copyright, :cover, 'COUNT(stock.isbn) AS left')
+                 .select(:isbn, :dewey, :title, :author, :publisher, :edition, :copyright, :cover, 'COUNT(stock.isbn) AS left').group(:isbn)
     }.to_json
   end
 
