@@ -16,6 +16,7 @@ CREATE TABLE status (
 INSERT INTO status (status) VALUES ("IN_STOCK"), ("CHECKED_OUT"), ("RESERVED");
 
 CREATE TABLE stock (
+  ROWID INTEGER PRIMARY KEY,
   isbn INTEGER NOT NULL,
   status TEXT NOT NULL,
   since TEXT,
