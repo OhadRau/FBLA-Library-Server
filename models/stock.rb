@@ -1,5 +1,6 @@
 class Stock < ActiveRecord::Base
   self.pluralize_table_names = false
+  self.primary_key = "ROWID"
   belongs_to :book, foreign_key: 'isbn'
 
   def self.check_out(isbn, user)
