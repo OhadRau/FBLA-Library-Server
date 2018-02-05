@@ -1,0 +1,11 @@
+source 'https://rubygems.org'
+
+gem 'sqlite3', '=2.6.8'
+gem 'activerecord', '=2.6.8'
+gem 'rack'
+gem 'rack/csrf'
+gem 'sinatra'
+gem 'sinatra/flash'
+gem 'thin'
+gem 'yaml'
+gem 'active_support/core_ext'
