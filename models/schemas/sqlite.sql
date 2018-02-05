@@ -23,6 +23,6 @@ CREATE TABLE stock (
   due TEXT,
   user TEXT,
 
-  FOREIGN KEY (isbn) REFERENCES book (isbn),
+  FOREIGN KEY (isbn) REFERENCES books (isbn),
   FOREIGN KEY (status) REFERENCES status (status)
 );
