@@ -19,7 +19,7 @@ class LibraryApi
   end
 
   get '/user/:user/books' do
-    {stock: Stock.where(user: params[:user])}.to_json
+    {stock: Stock.select("*").joins(:book).where(user: params[:user])}.to_json
   end
 
   get '/user/:user/reserved' do
