@@ -4,7 +4,9 @@ class LibraryApi
   end
 
   get '/books/stock' do
-    {stock: Stock.where(status: "IN_STOCK")}.to_json
+    {stock: Stock.where(status: "IN_STOCK")
+                 .joins(:book)
+                 .select("*")}.to_json
   end
 
   get '/books/inStock' do
