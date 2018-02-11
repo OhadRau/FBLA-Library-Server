@@ -7,6 +7,7 @@ require 'thin'
 require 'yaml'
 require 'active_support/core_ext'
 
+require_relative 'common/union'
 require_relative 'models/master'
 
 begin
