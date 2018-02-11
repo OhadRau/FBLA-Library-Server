@@ -1,5 +1,5 @@
 CREATE TABLE books (
-  isbn INTEGER PRIMARY KEY,
+  isbn BIGINT PRIMARY KEY,
   dewey TEXT NOT NULL,
   title TEXT NOT NULL,
   author TEXT NOT NULL,
@@ -17,7 +17,7 @@ INSERT INTO status (status) VALUES ("IN_STOCK"), ("CHECKED_OUT"), ("RESERVED");
 
 CREATE TABLE stock (
   ROWID INTEGER PRIMARY KEY,
-  isbn INTEGER NOT NULL,
+  isbn BIGINT NOT NULL,
   status TEXT NOT NULL,
   since TEXT,
   due TEXT,
