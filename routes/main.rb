@@ -51,4 +51,22 @@ class LibraryApi
   post '/books/byIsbn/:isbn/checkInFor/:user' do
     Stock.check_in(params[:isbn], params[:user])
   end
+
+  post '/book/add' do
+    book = Book.create({
+      isbn: params[:isbn],
+      dewey: params[:dewey],
+      title: params[:title],
+      author: params[:author],
+      publisher: params[:publisher],
+      edition: params[:edition],
+      copyright: params[:copyright]
+      })
+    unless params[:cover].nil?
+      File.open("./public/img/#{params[:isbn]}", 'wb') do |f|
+        f.write(params[:cover][:tempfile].read)
+      end
+    end
+  end
+
 end
