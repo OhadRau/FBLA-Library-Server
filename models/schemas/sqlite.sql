@@ -6,7 +6,8 @@ CREATE TABLE books (
   publisher TEXT,
   edition INTEGER,
   copyright CHAR(4),
-  cover BLOB
+  cover BLOB,
+  reserved_by TEXT
 );
 
 CREATE TABLE status (
