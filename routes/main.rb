@@ -1,3 +1,4 @@
+require_relative 'home'
 class LibraryApi
   get '/books' do
     {books: Book.all}.to_json
@@ -67,6 +68,14 @@ class LibraryApi
         f.write(params[:cover][:tempfile].read)
       end
     end
+    redirect '/'
+  end
+
+  post '/book/:isbn/addStock' do
+    Stock.create({
+      isbn: params[:isbn],
+      status: "IN_STOCK"
+    })
   end
 
 end
