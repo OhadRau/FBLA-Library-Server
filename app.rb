@@ -42,5 +42,9 @@ class LibraryApi < Sinatra::Base
     use Rack::Session::Cookie, :secret => $CONFIG[:secret]
   end
 
+  before do
+    content_type 'application/json'
+  end
+
   require_relative 'routes/main'
 end

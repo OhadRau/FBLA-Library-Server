@@ -1,5 +1,6 @@
 class LibraryApi
   get '/' do
+    content_type :html
     locals = {
       books: union(Stock.joins(:book)
                          .where(status: "IN_STOCK")
