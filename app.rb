@@ -1,3 +1,4 @@
+require 'pp'
 require 'active_record'
 require 'rack/csrf'
 require 'sinatra'
