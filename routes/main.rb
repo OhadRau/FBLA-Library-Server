@@ -6,9 +6,10 @@ class LibraryApi
   get '/books/stock' do
     {stock: union(Stock.joins(:book)
                        .where(status: "IN_STOCK")
-                       .select(:isbn, :dewey, :title, :author, :publisher, :edition, :copyright, :cover, 'COUNT(stock.isbn) AS left').group(:isbn),
+                       .select(:isbn, :dewey, :title, :author, :publisher, :edition, :copyright, :cover, 'COUNT(stock.isbn) AS left')
+                       .group(:isbn),
                   Book.all
-                      .select("*", '0 AS left'),
+                      .select("*", "0 AS left"),
                   by: :isbn)
     }.to_json
   end
@@ -25,7 +26,7 @@ class LibraryApi
   end
 
   get '/user/:user/books' do
-    {stock: Stock.select("*").joins(:book).where(user: params[:user])}.to_json
+    {stock: Stock.select("*", "date('now') > due AS overdue").joins(:book).where(user: params[:user])}.to_json
   end
 
   get '/user/:user/reserved' do
