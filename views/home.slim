@@ -1,0 +1,42 @@
+javascript:
+  function addStock(event) {
+    var isbn = event.getAttribute("isbn");
+    $.ajax({
+      type: "POST",
+      url: "/book/" + isbn + "/addStock"
+    }).then(location.reload())
+  }
+
+h2 School Library
+h3 Manage
+form#newBook action="/book/add" method="POST" enctype="multipart/form-data"
+table.table
+  thead
+    tr
+      th: b Title
+      th: b Author
+      th: b Cover
+      th: b ISBN
+      th: b Dewey Decimal
+      th: b Publisher
+      th: b In Stock
+      th: b Action
+    tr
+      td: input.form-control required="true" type="text" name="title" autocomplete="off" form="newBook" placeholder="Title"
+      td: input.form-control required="true" type="text" name="author" autocomplete="off" form="newBook" placeholder="Author"
+      td: input.btn type="file" name="cover" placeholder="Cover" form="newBook" accept="image/*"
+      td: input.form-control required="true" type="text" name="isbn" autocomplete="off" form="newBook" placeholder="ISBN"
+      td: input.form-control required="true" type="text" name="dewey" autocomplete="off" form="newBook" placeholder="Dewey Decimal"
+      td: input.form-control type="text" name="publisher" autocomplete="off" form="newBook" placeholder="Publisher"
+      td
+      td: button.btn type="submit" form="newBook" Add Book
+  - books.each do |book|
+    tr
+      td = book.title
+      td = book.author
+      td: img src="/img/#{book.isbn}" style="width:20%"
+      td = book.isbn
+      td = book.dewey
+      td = book.publisher
+      td = book.left
+      td: button.btn onClick="javascript:addStock(this)" isbn="#{book.isbn}" Add Stock

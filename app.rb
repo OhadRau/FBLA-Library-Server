@@ -1,3 +1,4 @@
+require 'pp'
 require 'active_record'
 require 'rack/csrf'
 require 'sinatra'
@@ -39,6 +40,10 @@ class LibraryApi < Sinatra::Base
       use Rack::Csrf, :raise => true
     end
     use Rack::Session::Cookie, :secret => $CONFIG[:secret]
+  end
+
+  before do
+    content_type 'application/json'
   end
 
   require_relative 'routes/main'
