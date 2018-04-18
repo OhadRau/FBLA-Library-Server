@@ -1,7 +1,11 @@
 require_relative 'home'
 class LibraryApi
   get '/books' do
-    {books: Book.all}.to_json
+    {books: Book.all
+                .joins(:stock)
+                .select("*")
+                .select("COUNT (stock.isbn) AS left")
+                .group(:isbn)}.to_json
   end
 
   get '/books/stock' do
