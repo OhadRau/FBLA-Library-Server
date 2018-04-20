@@ -2,9 +2,9 @@ require_relative 'home'
 class LibraryApi
   get '/books' do
     {books: Book.all
-                .joins(:stock)
+                .left_outer_joins(:stock)
                 .select("*")
-                .select("COUNT (stock.isbn) AS left")
+                .select("COUNT (CASE WHEN stock.status = 'IN_STOCK' THEN stock.status END) AS left")
                 .group(:isbn)}.to_json
   end
 
