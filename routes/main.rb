@@ -8,6 +8,14 @@ class LibraryApi
                 .group(:isbn)}.to_json
   end
 
+  get '/user/:user/has/:isbn' do
+    if Stock.where(isbn: params[:isbn]).where(user: params[:user]).exists?
+      return {user: params[:user] ,isbn: params[:isbn], has: true}.to_json
+    else
+      return {user: params[:user] ,isbn: params[:isbn], has: false}.to_json
+    end
+  end
+
   get '/books/stock' do
     {stock: union(Stock.joins(:book)
                        .where(status: "IN_STOCK")
