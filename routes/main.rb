@@ -74,7 +74,8 @@ class LibraryApi
       author: params[:author],
       publisher: params[:publisher],
       edition: params[:edition],
-      copyright: params[:copyright]
+      copyright: params[:copyright],
+      reserved_by: [].to_json
       })
     unless params[:cover].nil?
       File.open("./public/img/#{params[:isbn]}", 'wb') do |f|
