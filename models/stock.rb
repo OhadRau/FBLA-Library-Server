@@ -31,7 +31,8 @@ class Stock < ActiveRecord::Base
   def self.check_in(isbn, user)
     slot = Stock.find_by(isbn: isbn, user: user)
     book = Book.where(isbn: isbn).first
-    if book.reserved_by.nil?
+    reserved_by = JSON.parse(book.reserved_by)
+    if reserved_by[0].nil?
       unless slot.nil?
         slot.status = "IN_STOCK"
         slot.since = nil
@@ -41,7 +42,6 @@ class Stock < ActiveRecord::Base
       end
     else
       unless slot.nil?
-        reserved_by = JSON.parse(book.reserved_by)
         slot.status = "CHECKED_OUT"
         slot.since = Date.today.to_s
         slot.due = (Date.today + $CONFIG[:checkout_days].days).to_s
