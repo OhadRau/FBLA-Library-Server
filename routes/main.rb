@@ -27,6 +27,17 @@ class LibraryApi
     }.to_json
   end
 
+  get '/books/search/:query' do
+    query = params[:query]
+    {books: Book.where("title LIKE ? OR author LIKE ? OR books.isbn LIKE ?", 
+                       "%#{query}%", "%#{query}%", "%#{query}%")
+                       .left_outer_joins(:stock)
+                       .select("*")
+                       .select("COUNT (CASE WHEN stock.status = 'IN_STOCK' THEN stock.status END) AS left")
+                       .group(:isbn)}.to_json
+
+  end
+
   get '/books/inStock' do
     {books: Stock.joins(:book)
                  .where(status: "IN_STOCK")
