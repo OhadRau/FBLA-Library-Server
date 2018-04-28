@@ -27,3 +27,8 @@ CREATE TABLE stock (
   FOREIGN KEY (isbn) REFERENCES books (isbn),
   FOREIGN KEY (status) REFERENCES status (status)
 );
+
+CREATE TABLE reports (
+  user TEXT NOT NULL;
+  message TEXT NOT NULL;
+);

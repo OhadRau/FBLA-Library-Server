@@ -113,4 +113,15 @@ class LibraryApi
     })
   end
 
+  post '/report/:user/submit' do
+    message = params[:message]
+    user = params[:user]
+    pp params
+
+    Report.create({
+      message: message,
+      user: user
+    })
+  end
+
 end
