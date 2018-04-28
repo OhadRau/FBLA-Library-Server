@@ -124,4 +124,10 @@ class LibraryApi
     })
   end
 
+  post '/report/:id/dismiss' do
+    id = params[:id]
+    Report.where(ROWID: id).destroy_all
+    return nil
+  end
+
 end

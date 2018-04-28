@@ -8,6 +8,7 @@ class LibraryApi
                     Book.all
                         .select("*", '0 AS left'),
                     by: :isbn),
+      reports: Report.all
     }
 
     slim :home, locals: locals

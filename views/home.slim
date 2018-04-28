@@ -2,9 +2,35 @@ javascript:
   function addStock(event) {
     var isbn = event.getAttribute("isbn");
     $.ajax({
-      type: "POST",
-      url: "/book/" + isbn + "/addStock"
-    }).then(location.reload())
+      type: 'POST',
+      url: 'book/' + isbn + '/addStock',
+      dataType: "text",
+      success: function(data) {
+        location.reload();
+      },
+      error: function(xhr, textStatus, error){
+        console.log(xhr.statusText);
+        console.log(textStatus);
+        console.log(error);
+      }
+    })
+  }
+
+  function dismissBug(event) {
+    var bugID = event.getAttribute("bugID");
+    $.ajax({
+      type: 'POST',
+      url: 'report/' + bugID + '/dismiss',
+      dataType: "text",
+      success: function(data) {
+        location.reload();
+      },
+      error: function(xhr, textStatus, error){
+        console.log(xhr.statusText);
+        console.log(textStatus);
+        console.log(error);
+      }
+    });
   }
 
 h2 School Library
@@ -40,3 +66,15 @@ table.table
       td = book.publisher
       td = book.left
       td: button.btn onClick="javascript:addStock(this)" isbn="#{book.isbn}" Add Stock
+table.table
+  thead
+    tr
+     th: b User
+     th: b Message
+     th: b Action
+  - reports.each do |report|
+    tr  
+      td = report.user
+      td = report.message
+      td: button.btn onClick="javascript:dismissBug(this)" bugID="#{report.ROWID}" Dismiss
+

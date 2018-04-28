@@ -29,6 +29,7 @@ CREATE TABLE stock (
 );
 
 CREATE TABLE reports (
-  user TEXT NOT NULL;
-  message TEXT NOT NULL;
+  ROWID INTEGER PRIMARY KEY,
+  user TEXT NOT NULL,
+  message TEXT NOT NULL
 );
