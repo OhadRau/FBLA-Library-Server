@@ -49,6 +49,16 @@ class LibraryApi
     Book.find_by(isbn: params[:isbn]).to_json
   end
 
+  get '/books/byDewey/:range' do 
+    range = params[:range]
+    {books: Book
+          .where("dewey LIKE ?", "#{range}%")
+          .left_outer_joins(:stock)
+          .select("*")
+          .select("COUNT (CASE WHEN stock.status = 'IN_STOCK' THEN stock.status END) AS left")
+          .group(:isbn)}.to_json
+  end
+
   get '/user/:user/books' do
     {stock: Stock.select("*", "date('now') > due AS overdue").joins(:book).where(user: params[:user])}.to_json
   end
