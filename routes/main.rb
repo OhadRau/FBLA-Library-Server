@@ -68,7 +68,10 @@ class LibraryApi
   end
 
   get '/user/:user/checked_out' do
-    {checked_out: Stock.where(user: params[:user], status: "CHECKED_OUT")}.to_json
+    {checked_out: Book.joins(:stock)
+                      .where(stock: {user: params[:user], status: "CHECKED_OUT"})
+                      .select("*")
+                      .select("COUNT (CASE WHEN stock.status = 'IN_STOCK' THEN stock.status END) AS left")}.to_json
   end
 
   get '/user/:user/overdue' do
@@ -127,7 +130,7 @@ class LibraryApi
   post '/report/:id/dismiss' do
     id = params[:id]
     Report.where(ROWID: id).destroy_all
-    return nil
+    return nil  
   end
 
 end
