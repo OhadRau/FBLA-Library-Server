@@ -68,10 +68,12 @@ class LibraryApi
   end
 
   get '/user/:user/checked_out' do
-    {checked_out: Book.joins(:stock)
+    {checked_out: Book.all
+                      .left_outer_joins(:stock)
                       .where(stock: {user: params[:user], status: "CHECKED_OUT"})
                       .select("*")
-                      .select("COUNT (CASE WHEN stock.status = 'IN_STOCK' THEN stock.status END) AS left")}.to_json
+                      .select("COUNT (CASE WHEN stock.status = 'IN_STOCK' THEN stock.status END) AS left")
+                      .group(:isbn)}.to_json
   end
 
   get '/user/:user/overdue' do
